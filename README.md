@@ -69,18 +69,55 @@ cp -r council/ ~/clawd/skills/council/
 
 The skill includes bundled agent personas, but if you have custom PAI agents at `~/.claude/Agents/`, those will be used instead.
 
-## Best Used For
+## HOWTO: Using Council of the Wise Effectively
 
-✅ Business ideas and plans
-✅ Content strategies
-✅ Project designs
-✅ Major decisions
+### When to Use the Council
+- Before committing to a major decision (new project, pivot, launch)
+- When you're too close to an idea and need outside perspective
+- For stress-testing plans before sharing with stakeholders
+- When you're stuck and want structured thinking prompts
 
-## Not Ideal For
+### When NOT to Use It
+- Quick questions ("what's the syntax for X?")
+- Time-sensitive tasks (takes 2-5 minutes)
+- Small decisions where four perspectives is overkill
+- Things you've already decided — the council isn't for validation
 
-❌ Quick questions
-❌ Simple tasks
-❌ Time-sensitive requests (takes 2-5 min)
+### Getting the Best Results
+
+1. **Be Specific.** "Analyze my startup idea" → weak. "Analyze this B2B SaaS for security teams: [specific pitch]" → strong.
+
+2. **Include Context.** Share constraints, goals, and what you've already considered. The council is smarter when you're honest about what you don't know.
+
+3. **Ask Follow-ups.** After the council reports, dig into the most interesting points. "The Devil's Advocate mentioned X — expand on that."
+
+4. **Use the Synthesis.** The individual perspectives are interesting; the synthesis is actionable. Start there if you're short on time.
+
+### Example Invocations
+
+```
+"Send this to the council: I'm considering switching from Substack to 
+Beehiiv for my newsletter. 2000 subscribers, mostly free, want to 
+monetize. What should I consider?"
+
+"Council of the wise: Review this README before I publish it — 
+is the value prop clear? What's missing?"
+
+"Get the council's feedback on this feature spec [paste spec]"
+```
+
+**Pro Tip:** Run the council *before* you're emotionally invested in an idea. It's easier to hear criticism early than after you've spent a week building.
+
+## Why These Four Perspectives?
+
+The council members complement each other:
+
+- **Devil's Advocate** finds what could go wrong (risk)
+- **Architect** designs how it should be structured (strategy)
+- **Engineer** figures out how to build it (execution)
+- **Artist** shapes how it should feel (experience)
+
+Together they cover: risk, strategy, execution, and experience — the four dimensions most ideas need to succeed
 
 ## Credits
 
