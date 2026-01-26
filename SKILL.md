@@ -3,7 +3,7 @@ name: council
 description: Send an idea to the Council of the Wise for multi-perspective feedback. Spawns sub-agents (Devil's Advocate, Architect, Engineer, Artist) to challenge, design, implement, and refine ideas.
 version: 1.0.0
 author: jeffaf
-credits: Inspired by Daniel Miessler's PAI (Personal AI Infrastructure) and agent architecture concepts.
+credits: Inspired by Daniel Miessler's PAI (Personal AI Infrastructure). Architect, Engineer, and Artist agents adapted from PAI patterns. Devil's Advocate is an original creation.
 ---
 
 # Council of the Wise

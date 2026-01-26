@@ -84,7 +84,7 @@ The skill includes bundled agent personas, but if you have custom PAI agents at 
 
 ## Credits
 
-Inspired by [Daniel Miessler](https://danielmiessler.com/)'s PAI (Personal AI Infrastructure) concepts and agent architecture patterns.
+Inspired by [Daniel Miessler](https://danielmiessler.com/)'s PAI (Personal AI Infrastructure) concepts. The Architect, Engineer, and Artist agent personas are adapted from PAI patterns. The Devil's Advocate is an original creation.
 
 ## License
 
