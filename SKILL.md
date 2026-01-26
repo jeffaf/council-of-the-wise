@@ -1,7 +1,7 @@
 ---
 name: council
-description: Send an idea to the Council of the Wise for multi-perspective feedback. Spawns sub-agents (Devil's Advocate, Architect, Engineer, Artist) to challenge, design, implement, and refine ideas.
-version: 1.0.0
+description: Send an idea to the Council of the Wise for multi-perspective feedback. Spawns sub-agents to analyze from multiple expert perspectives. Auto-discovers agent personas from agents/ folder.
+version: 1.1.0
 author: jeffaf
 credits: Inspired by Daniel Miessler's PAI (Personal AI Infrastructure). Architect, Engineer, and Artist agents adapted from PAI patterns. Devil's Advocate is an original creation.
 ---
@@ -20,25 +20,40 @@ When the user says "send it to the council" or "council of the wise" or similar,
 
 ## Council Members
 
-The skill includes bundled agent personas in `agents/`:
+The skill **auto-discovers** agent personas from the `agents/` folder. Any `.md` file in that folder becomes a council member.
 
-1. **DevilsAdvocate.md** — Challenges assumptions, finds weaknesses, stress-tests
-2. **Architect.md** — Designs systems, structure, high-level approach  
-3. **Engineer.md** — Implementation details, technical feasibility
-4. **Artist.md** — Voice, style, presentation, user experience
+**Default members:**
+- `DevilsAdvocate.md` — Challenges assumptions, finds weaknesses, stress-tests
+- `Architect.md` — Designs systems, structure, high-level approach  
+- `Engineer.md` — Implementation details, technical feasibility
+- `Artist.md` — Voice, style, presentation, user experience
 
-### Custom Agents (Optional)
+### Adding New Council Members
+
+Simply add a new `.md` file to the `agents/` folder:
+
+```bash
+# Add a security reviewer
+echo "# Pentester\n\nYou analyze security implications..." > agents/Pentester.md
+
+# Add a QA perspective  
+echo "# QATester\n\nYou find edge cases..." > agents/QATester.md
+```
+
+The skill will automatically include any agents it finds. No config file needed.
+
+### Custom Agent Location (Optional)
 
 If the user has custom PAI agents at `~/.claude/Agents/`, those can be used instead:
-- Check if `~/.claude/Agents/DevilsAdvocate.md` exists
-- If yes, use custom agents from that directory
+- Check if `~/.claude/Agents/` exists and has agent files
+- If yes, prefer custom agents from that directory
 - If no, use the bundled agents in this skill's `agents/` folder
 
 ## Process
 
 1. Receive the idea/topic from the user
-2. Determine agent source (custom or bundled)
-3. Spawn a sub-agent with this task template:
+2. Discover available agents (scan `agents/` folder or custom path)
+3. Spawn a sub-agent with **5-minute timeout** using this task template:
 
 ```
 Analyze this idea/plan from multiple expert perspectives.
@@ -48,17 +63,18 @@ Analyze this idea/plan from multiple expert perspectives.
 
 **Your Task:**
 Read and apply these agent perspectives from [AGENT_PATH]:
-- DevilsAdvocate.md — Challenge it. What could go wrong? What assumptions are shaky?
-- Architect.md — How should it be structured? What's the high-level design?
-- Engineer.md — How would you implement it? What's technically feasible?
-- Artist.md — How should it feel? What's the voice/style/UX?
+[List all discovered agents dynamically]
 
-For each perspective, provide:
+For each perspective:
 1. Key insights (2-3 bullets)
-2. Concerns or questions
+2. Concerns or questions  
 3. Recommendations
 
-End with a **Synthesis** section that combines the best ideas and flags critical decisions.
+End with:
+- **Synthesis** section combining best ideas and flagging critical decisions
+- **Token Usage** showing approximate input/output tokens consumed
+
+Use the voice and personality defined in each agent file. Don't just list points — embody the perspective.
 ```
 
 4. Return the consolidated feedback to the user
@@ -69,30 +85,38 @@ End with a **Synthesis** section that combines the best ideas and flags critical
 ## 🏛️ Council of the Wise — [Topic]
 
 ### 👹 Devil's Advocate
-[challenges and risks]
+[challenges and risks — sharp, probing voice]
 
 ### 🏗️ Architect  
-[structure and design]
+[structure and design — strategic, principled voice]
 
 ### 🛠️ Engineer
-[implementation notes]
+[implementation notes — practical, direct voice]
 
 ### 🎨 Artist
-[voice and presentation]
+[voice and presentation — evocative, user-focused voice]
 
 ### ⚖️ Synthesis
 [combined recommendation + key decisions needed]
+[note any disagreements between council members]
+
+---
+📊 **Token Usage:** ~X input / ~Y output tokens
 ```
 
-## Optional Members
+## Configuration
 
-For security-related topics, consider adding:
-- **Pentester** — Security implications, attack surface
-- **QATester** — Quality, edge cases, testing scenarios
+No config file needed. The skill auto-discovers agents and uses sensible defaults:
+
+- **Timeout:** 5 minutes (enforced via sub-agent spawn)
+- **Agents:** All `.md` files in `agents/` folder
+- **Output:** Markdown with synthesis and token usage
+- **Model:** Uses session default (can override via Clawdbot)
 
 ## Notes
 
 - Council review takes 2-5 minutes depending on complexity
 - Use for: business ideas, content plans, project designs, major decisions
 - Don't use for: quick questions, simple tasks, time-sensitive requests
-- Sub-agent spawns use the default model unless overridden
+- Token usage is reported so you can gauge cost/benefit
+- Add specialized agents for domain-specific analysis (security, legal, etc.)

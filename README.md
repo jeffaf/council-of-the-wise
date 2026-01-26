@@ -37,33 +37,85 @@ cp -r council/ ~/clawd/skills/council/
 ## Example
 
 **Input:**
-> Send this to the council: I want to start a newsletter about offensive security and AI-assisted coding
+> Send this to the council: I'm building a CLI tool that uses AI to help with bug bounty hunting — automated recon, AI-assisted analysis, human-in-the-loop for key decisions. Target: HackerOne programs.
 
 **Output:**
 ```
-## 🏛️ Council of the Wise — Security Newsletter
+## 🏛️ Council of the Wise — AI Bug Bounty Tool
 
 ### 👹 Devil's Advocate
-- Niche may be too narrow...
-- What's the content pipeline after initial ideas?
+I've seen three ways this dies:
 
-### 🏗️ Architect
-- Four content pillars recommended...
-- Monthly cadence with deep content...
+1. **Token costs eat your bounties.** Running GPT-4 on every subdomain? 
+   You'll spend $50 in tokens to find a $100 bug. Do the math first.
+2. **HackerOne ToS.** "Automated scanning" is a gray area. One aggressive 
+   program bans your account, you lose access to all of them.
+3. **The 80% problem.** AI is great at recon. It's terrible at the creative 
+   leap that finds the actual vulnerability. You'll automate the easy part 
+   and still do all the hard work manually.
+
+Path forward: Start with ONE program. Track tokens religiously. Keep human 
+approval before any active testing.
+
+### 🏗️ Architect  
+The fundamental constraint is the human-AI handoff. Structure it as three layers:
+
+1. **Recon Layer** (fully automated): subdomains, ports, tech stack
+2. **Analysis Layer** (AI-assisted): "here's what looks interesting and why"
+3. **Testing Layer** (human-approved): actual vulnerability validation
+
+The AI should be a force multiplier for your attention, not a replacement. 
+Design the handoff points explicitly.
 
 ### 🛠️ Engineer
-- beehiiv is the right platform choice...
-- Set up content pipeline: drafts → review → publish
+Concrete build plan:
+
+- **Week 1:** Scope parser + subfinder + httpx pipeline (no AI yet)
+- **Week 2:** Add Claude for analyzing httpx output, flag interesting endpoints
+- **Week 3:** Human-in-the-loop approval flow, Slack/Telegram notifications
+- **Week 4:** Cost tracking dashboard, per-program budgets
+
+Start with tools you know: Python, existing recon tools, Claude API. 
+Don't build a framework — build a workflow.
 
 ### 🎨 Artist
-- First-person authentic voice is right for this audience...
-- Nail the welcome email...
+The experience should feel like a skilled research assistant, not a robot:
+
+- Notifications should sound human: "Found 3 interesting endpoints on 
+  target.com — the /api/v2/admin looks promising, want me to dig deeper?"
+- Let the user name campaigns, add notes, build a narrative
+- The tool should remember context: "Last time on this program, you found..."
 
 ### ⚖️ Synthesis
-- Core idea is strong
-- Biggest risk: content sustainability
-- Recommended: Build 3-issue buffer before launch
+**Do it, but small.** The council agrees on:
+- Start with ONE HackerOne program
+- Track token costs from day one
+- Keep human approval for anything active
+- Design for attention-multiplication, not automation
+
+**Key decision:** Build for yourself first, or build for others? 
+Recommendation: yourself first, for 3 months minimum.
+
+---
+📊 **Token Usage:** ~2.1k input / ~1.8k output tokens
 ```
+
+## Adding Custom Agents
+
+Just drop a `.md` file in the `agents/` folder:
+
+```bash
+# Add a security-focused reviewer
+cat > agents/Pentester.md << 'EOF'
+# Pentester
+
+*"What's the attack surface? How would I break this?"*
+
+You think like an attacker. Every feature is a potential vulnerability...
+EOF
+```
+
+The skill auto-discovers all agents — no config changes needed.
 
 ## Custom Agents
 
