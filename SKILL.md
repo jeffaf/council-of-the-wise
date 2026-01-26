@@ -1,7 +1,7 @@
 ---
 name: council
 description: Send an idea to the Council of the Wise for multi-perspective feedback. Spawns sub-agents to analyze from multiple expert perspectives. Auto-discovers agent personas from agents/ folder.
-version: 1.1.0
+version: 1.2.0
 author: jeffaf
 credits: Inspired by Daniel Miessler's PAI (Personal AI Infrastructure). Architect, Engineer, and Artist agents adapted from PAI patterns. Devil's Advocate is an original creation.
 ---
@@ -53,7 +53,8 @@ If the user has custom PAI agents at `~/.claude/Agents/`, those can be used inst
 
 1. Receive the idea/topic from the user
 2. Discover available agents (scan `agents/` folder or custom path)
-3. Spawn a sub-agent with **5-minute timeout** using this task template:
+3. Send a loading message to the user: `🏛️ *The Council convenes...* (this takes 2-5 minutes)`
+4. Spawn a sub-agent with **5-minute timeout** using this task template:
 
 ```
 Analyze this idea/plan from multiple expert perspectives.
@@ -72,12 +73,13 @@ For each perspective:
 
 End with:
 - **Synthesis** section combining best ideas and flagging critical decisions
-- **Token Usage** showing approximate input/output tokens consumed
+- Note where council members **disagree** with each other — that's where the insight is
+- **Token Usage** with estimated input/output tokens (based on content length)
 
 Use the voice and personality defined in each agent file. Don't just list points — embody the perspective.
 ```
 
-4. Return the consolidated feedback to the user
+5. Return the consolidated feedback to the user
 
 ## Output Format
 
@@ -98,10 +100,10 @@ Use the voice and personality defined in each agent file. Don't just list points
 
 ### ⚖️ Synthesis
 [combined recommendation + key decisions needed]
-[note any disagreements between council members]
+[note where council members disagreed and why — that's the gold]
 
 ---
-📊 **Token Usage:** ~X input / ~Y output tokens
+📊 **Token Usage:** ~X input / ~Y output tokens *(estimated)*
 ```
 
 ## Configuration
@@ -118,5 +120,5 @@ No config file needed. The skill auto-discovers agents and uses sensible default
 - Council review takes 2-5 minutes depending on complexity
 - Use for: business ideas, content plans, project designs, major decisions
 - Don't use for: quick questions, simple tasks, time-sensitive requests
-- Token usage is reported so you can gauge cost/benefit
+- Token usage is estimated based on content length (not precise API measurement)
 - Add specialized agents for domain-specific analysis (security, legal, etc.)

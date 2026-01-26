@@ -4,7 +4,10 @@ A Clawdbot skill that spawns sub-agents to analyze ideas from multiple expert pe
 
 ## What It Does
 
-When you say "send this to the council" or "council of the wise," Clawdbot spawns a sub-agent that analyzes your idea through four lenses:
+When you say "send this to the council" or "council of the wise," Clawdbot:
+
+1. Sends a loading message: `🏛️ *The Council convenes...* (this takes 2-5 minutes)`
+2. Spawns a sub-agent that analyzes your idea through multiple lenses:
 
 - **👹 Devil's Advocate** — Challenges assumptions, finds weaknesses
 - **🏗️ Architect** — High-level structure and design
@@ -96,8 +99,12 @@ The experience should feel like a skilled research assistant, not a robot:
 **Key decision:** Build for yourself first, or build for others? 
 Recommendation: yourself first, for 3 months minimum.
 
+**Where the council disagreed:** Engineer wants to ship fast with existing tools. 
+Architect wants to design the human-AI handoff carefully first. Both valid — 
+depends on whether you're exploring or committing.
+
 ---
-📊 **Token Usage:** ~2.1k input / ~1.8k output tokens
+📊 **Token Usage:** ~2.1k input / ~1.8k output tokens *(estimated)*
 ```
 
 ## Adding Custom Agents
@@ -116,6 +123,26 @@ EOF
 ```
 
 The skill auto-discovers all agents — no config changes needed.
+
+### Agent File Schema
+
+Agent files should follow this minimal structure:
+
+```markdown
+# Agent Name
+
+*"A memorable quote or philosophy"*
+
+[1-2 sentences describing the perspective]
+
+## Your Voice
+[How this agent sounds — tone, example phrases]
+
+## Your Approach
+[How this agent analyzes — what they look for]
+```
+
+See the bundled agents in `agents/` for examples.
 
 ## Custom Agents
 
