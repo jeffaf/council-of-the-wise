@@ -1,7 +1,7 @@
 ---
 name: council
 description: Send an idea to the Council of the Wise for multi-perspective feedback. Spawns sub-agents to analyze from multiple expert perspectives. Auto-discovers agent personas from agents/ folder.
-version: 1.2.1
+version: 1.2.2
 author: jeffaf
 credits: Inspired by Daniel Miessler's PAI (Personal AI Infrastructure). Architect, Engineer, and Artist agents adapted from PAI patterns. Devil's Advocate is an original creation.
 ---
@@ -27,6 +27,7 @@ The skill **auto-discovers** agent personas from the `agents/` folder. Any `.md`
 - `Architect.md` — Designs systems, structure, high-level approach  
 - `Engineer.md` — Implementation details, technical feasibility
 - `Artist.md` — Voice, style, presentation, user experience
+- `Quant.md` — Risk analysis, ROI, expected value, position sizing
 
 ### Adding New Council Members
 
@@ -74,7 +75,7 @@ For each perspective:
 End with:
 - **Synthesis** section combining best ideas and flagging critical decisions
 - Note where council members **disagree** with each other — that's where the insight is
-- **Token Usage** with estimated input/output tokens (based on content length)
+- Put **Synthesis first** (TL;DR at the top, details below)
 
 Use the voice and personality defined in each agent file. Don't just list points — embody the perspective.
 ```
@@ -86,7 +87,13 @@ Use the voice and personality defined in each agent file. Don't just list points
 ```markdown
 ## 🏛️ Council of the Wise — [Topic]
 
-### 👹 Devil's Advocate
+### ⚖️ Synthesis (TL;DR)
+[combined recommendation + key decisions needed]
+[note where council members disagreed and why — that's the gold]
+
+---
+
+### 🔍 Devil's Advocate
 [challenges and risks — sharp, probing voice]
 
 ### 🏗️ Architect  
@@ -98,12 +105,8 @@ Use the voice and personality defined in each agent file. Don't just list points
 ### 🎨 Artist
 [voice and presentation — evocative, user-focused voice]
 
-### ⚖️ Synthesis
-[combined recommendation + key decisions needed]
-[note where council members disagreed and why — that's the gold]
-
----
-📊 **Token Usage:** ~X input / ~Y output tokens *(estimated)*
+### 📊 Quant
+[risk analysis, ROI, expected value — data-driven voice]
 ```
 
 ## Configuration
