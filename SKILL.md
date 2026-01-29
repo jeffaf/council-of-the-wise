@@ -93,7 +93,7 @@ Use the voice and personality defined in each agent file. Don't just list points
 
 ---
 
-### 🔍 Devil's Advocate
+### 👹 Devil's Advocate
 [challenges and risks — sharp, probing voice]
 
 ### 🏗️ Architect  
