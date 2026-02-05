@@ -8,21 +8,7 @@ credits: Inspired by Daniel Miessler's PAI (Personal AI Infrastructure). Archite
 
 # Council of the Wise
 
-Multi-perspective analysis via sub-agent spawning.
-
-## Agent Instructions
-
-**Trigger phrases:**
-- "send this to the council"
-- "council of the wise"
-- "get the council's feedback on"
-
-**When triggered:**
-1. Send loading message: `🏛️ *The Council convenes...* (this takes 2-5 minutes)`
-2. Spawn sub-agent with 5-minute timeout
-3. Return synthesized council report
-
-**Don't use for:** Quick questions, time-sensitive tasks, simple decisions.
+Get multi-perspective feedback on your ideas from a panel of AI experts. Perfect for stress-testing business plans, project designs, content strategies, or major decisions.
 
 ## Usage
 
@@ -123,30 +109,6 @@ Use the voice and personality defined in each agent file. Don't just list points
 [risk analysis, ROI, expected value — data-driven voice]
 ```
 
-## Example Output
-
-```markdown
-## 🏛️ Council of the Wise — [Topic]
-
-### ⚖️ Synthesis (TL;DR)
-**Do it, but small.** The council agrees on: [key points]
-**Where the council disagreed:** [insight]
-
-### 👹 Devil's Advocate
-[challenges, risks, failure modes]
-
-### 🏗️ Architect  
-[structure, strategy, design]
-
-### 🛠️ Engineer
-[implementation, technical feasibility]
-
-### 🎨 Artist
-[UX, voice, presentation]
-```
-
-See README.md for a full example with detailed output.
-
 ## Configuration
 
 No config file needed. The skill auto-discovers agents and uses sensible defaults:
@@ -164,3 +126,16 @@ No config file needed. The skill auto-discovers agents and uses sensible default
 - Don't use for: quick questions, simple tasks, time-sensitive requests
 - The sub-agent consolidates all perspectives into a single response with Synthesis first
 - Add specialized agents for domain-specific analysis (security, legal, etc.)
+
+---
+
+## Agent Implementation Notes
+
+**Trigger phrases:** "send this to the council", "council of the wise", "get the council's feedback on"
+
+**When triggered:**
+1. Send loading message: `🏛️ *The Council convenes...* (this takes 2-5 minutes)`
+2. Spawn sub-agent with 5-minute timeout using the task template in Process section
+3. Return synthesized council report to user
+
+**Don't invoke for:** Quick questions, time-sensitive tasks, simple decisions.
