@@ -1,14 +1,28 @@
 ---
 name: council
 description: Send an idea to the Council of the Wise for multi-perspective feedback. Spawns sub-agents to analyze from multiple expert perspectives. Auto-discovers agent personas from agents/ folder.
-version: 1.2.2
+version: 1.3.0
 author: jeffaf
 credits: Inspired by Daniel Miessler's PAI (Personal AI Infrastructure). Architect, Engineer, and Artist agents adapted from PAI patterns. Devil's Advocate is an original creation.
 ---
 
 # Council of the Wise
 
-When the user says "send it to the council" or "council of the wise" or similar, spawn a sub-agent to analyze the idea from multiple expert perspectives.
+Multi-perspective analysis via sub-agent spawning.
+
+## Agent Instructions
+
+**Trigger phrases:**
+- "send this to the council"
+- "council of the wise"
+- "get the council's feedback on"
+
+**When triggered:**
+1. Send loading message: `🏛️ *The Council convenes...* (this takes 2-5 minutes)`
+2. Spawn sub-agent with 5-minute timeout
+3. Return synthesized council report
+
+**Don't use for:** Quick questions, time-sensitive tasks, simple decisions.
 
 ## Usage
 
@@ -20,7 +34,7 @@ When the user says "send it to the council" or "council of the wise" or similar,
 
 ## Council Members
 
-The skill **auto-discovers** agent personas from the `agents/` folder. Any `.md` file in that folder becomes a council member.
+The skill **auto-discovers** agent personas from `{skill_folder}/agents/`. Any `.md` file in that folder becomes a council member.
 
 **Default members:**
 - `DevilsAdvocate.md` — Challenges assumptions, finds weaknesses, stress-tests
@@ -109,6 +123,30 @@ Use the voice and personality defined in each agent file. Don't just list points
 [risk analysis, ROI, expected value — data-driven voice]
 ```
 
+## Example Output
+
+```markdown
+## 🏛️ Council of the Wise — [Topic]
+
+### ⚖️ Synthesis (TL;DR)
+**Do it, but small.** The council agrees on: [key points]
+**Where the council disagreed:** [insight]
+
+### 👹 Devil's Advocate
+[challenges, risks, failure modes]
+
+### 🏗️ Architect  
+[structure, strategy, design]
+
+### 🛠️ Engineer
+[implementation, technical feasibility]
+
+### 🎨 Artist
+[UX, voice, presentation]
+```
+
+See README.md for a full example with detailed output.
+
 ## Configuration
 
 No config file needed. The skill auto-discovers agents and uses sensible defaults:
@@ -121,7 +159,8 @@ No config file needed. The skill auto-discovers agents and uses sensible default
 ## Notes
 
 - Council review takes 2-5 minutes depending on complexity
+- **Timeout:** 5 minutes enforced; on timeout returns partial results if available
 - Use for: business ideas, content plans, project designs, major decisions
 - Don't use for: quick questions, simple tasks, time-sensitive requests
-- Token usage is estimated based on content length (not precise API measurement)
+- The sub-agent consolidates all perspectives into a single response with Synthesis first
 - Add specialized agents for domain-specific analysis (security, legal, etc.)

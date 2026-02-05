@@ -18,9 +18,9 @@ The sub-agent returns a synthesized report with insights, concerns, and recommen
 
 ## Installation
 
-### Via ClawdHub
+### Via ClawHub
 ```bash
-clawdhub install council-of-the-wise
+clawhub install council-of-the-wise
 ```
 
 ### Manual
